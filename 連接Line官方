@@ -1,0 +1,8 @@
+# weatherdressing_line
+weather dressing 於LINE上的程式
+
+% ../gradlew clean build
+
+> Task :line-bot-cli:bootRepackage
+
+BUILD SUCCESSFUL in ...
