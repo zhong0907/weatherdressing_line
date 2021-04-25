@@ -1,0 +1,37 @@
+function doPost(e) {
+  //認證身份，重新輸入line@ channel_access_token
+  var CHANNEL_ACCESS_TOKEN = '5 / UC8dYqDdZar4OKMO89okpxLpFt3HP1t + 4lZl + Cy1j7CqV319xCUzwKkY0xH4xils93aI7AyAeOKoYulVLdM0JAXxuUyEy9IrTwwwttttyyKyYyxyzyyYaYyPyY1yCy7yKyYaYLyCy7YtA9Ct8CZ8KYT9A9C';
+  var msg= JSON.parse(e. postData.contents);
+
+  //除錯用
+  Logger.log(msg);
+  console.log(msg);
+
+  //從接收到的訊息中取出 replyToken 和發送的訊息文字
+  var replyToken = msg.events[0].replyToken;
+  var userMessage = msg.events[0].message.text;
+
+  if (typeof replyToken === 'undefined') {
+    return;
+  };
+
+  //定義回傳訊息
+  var reply_message=[{
+      'type': 'text',
+      'text': 'line Bot連接測試'
+    }];
+
+  //回傳訊息給line 並傳送給使用者
+  var url = 'https://api.line.me/v2/bot/message/reply';
+  UrlFetchApp.fetch(url, {
+      'headers': {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+    },
+    'method': 'post',
+    'payload': JSON.stringify({
+      'replyToken': replyToken,
+      'messages': reply_message,
+    }),
+  });
+}
